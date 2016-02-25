@@ -10,16 +10,29 @@
 
 var mongoose = require('mongoose'); //Allows us to work with our database (mongoDB)
 
+
 /*
  * A schema is like a blueprint for things we 
  * want to insert into the database. Here we 
  * define what information we want to store
- * about each Movie.  
+ * about each Movie Review.  
+ */
+var reviewSchema = new mongoose.Schema({
+  body: String,
+  score: Number
+});
+
+/*
+ * Now we define the movie Schema.
+ * Each movie will contain an array of 
+ * reviews, so we add that here. 
  */
 var movieSchema = new mongoose.Schema({
   title: String,
-  description: String
+  description: String,
+  reviews: [reviewSchema]
 });
+
 
 /*
  * Now we take our schema and turn

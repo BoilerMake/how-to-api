@@ -40,13 +40,13 @@ app.use(bodyParser.json()); //Use bodyParser to read JSON data
 
 /*
  * Application Routes
- * --------------------------------------------------------------------------------------
- * URI 					| HTTP ACTION 		| POST Body 		| Result
- * --------------------------------------------------------------------------------------
- * api/listEntries 	 	GET 			 	 Empty 				  List of all users
- * api/:id 			 	GET    			 	 Empty   			  One user w/ details
- * api/insert 			POST 				 JSON                 Adds provided user
- * --------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------
+ * URI 						| HTTP ACTION 		| POST Body 		| Result
+ * ------------------------------------------------------------------------------------------
+ * api/movies 	 			GET 			 	 Empty 				  List of all users
+ * api/movies/:id 			GET    			 	 Empty   			  One user w/ details
+ * api/movies 				POST 				 JSON                 Adds provided user
+ * ------------------------------------------------------------------------------------------
  */
 
 mainController = require('./controllers/mainController.js'); //Load the controller we made earlier from the /controllers folder
@@ -58,9 +58,10 @@ mainController = require('./controllers/mainController.js'); //Load the controll
  */
 
 app.get('/',mainController.helloWorld);
-app.get('/api/entries',mainController.getEntries);
-app.get('/api/:id',mainController.getSingleEntry);
-app.post('/api/insert',mainController.addEntry);
+app.get('/api/movies',mainController.getMovies);
+app.get('/api/movies/:id',mainController.getSingleMovie);
+app.post('/api/movies',mainController.addMovie);
+app.post('/api/movies/:id/reviews',mainController.addReview);
 
 
 listRoutes(); //Print the routes so we can check that things are working

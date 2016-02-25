@@ -10,7 +10,7 @@
 
 // First we load our dependencies. 
 var mongoose = require('mongoose'); //We need the mongoose library so we can work with our database.
-var Movie = require('../models/Movie'); //We also need to load the Movie model.
+var Movie = require('../models/movie'); //We also need to load the Movie model.
 
  
 /*
@@ -23,10 +23,10 @@ exports.helloWorld = function(request,response) {
 }
 
 /*
- * This function gets called when a client makes a GET request to "/api/entries". 
+ * This function gets called when a client makes a GET request to "/api/movies". 
  * Here we send our entire data array to the client.
  */
-exports.getEntries = function(request,response) {
+exports.getMovies = function(request,response) {
 	//Look up EVERY movie in the database. We can use the first argument to 
 	//narrow down the search. So if we leave it empty, we'll get all movies. 
 	Movie.find({},function(err,movies) {
@@ -40,11 +40,11 @@ exports.getEntries = function(request,response) {
 }
 
 /*
- * This function gets called when a client makes a GET request to "/api/<something>"
+ * This function gets called when a client makes a GET request to "/api/movies/<something>"
  * It sends one specific entry from our data array to the client. 
  * The 'id' paramater lets us know which entry the client asked for.
  */
-exports.getSingleEntry = function(request,response) {
+exports.getSingleMovie = function(request,response) {
 	//We use findOne() here since we just want to get one movie.
 	//Like find, the first paramater lets us narrow down our search.
 	//We're asking for the entry which has an _id equal to request.params.id.
@@ -59,10 +59,10 @@ exports.getSingleEntry = function(request,response) {
 }
 
 /*
- * This function is called when the client makes a POST request to "/api/insert".
+ * This function is called when the client makes a POST request to "/api/movies".
  * The data we need to insert is given to us in the request body. 
  */
-exports.addEntry = function(request,response) {
+exports.addMovie = function(request,response) {
 	//Collect the data we got from the client  
 	var dataToInsert = {
 		title: request.body.title,
@@ -79,4 +79,34 @@ exports.addEntry = function(request,response) {
 	});
 	//Send the client the _id for the thing we just inserted
 	response.send(newMovie._id);
+}
+
+
+/*
+ * This function is called when the client makes a POST request to "/api/movies/:id/reviews".
+ * The data we need to insert is given to us in the request body. 
+ * We take that data and add it to the review array. 
+ */
+exports.addReview = function(request,response) {
+	//Collect the data we got from the client
+	var movieID = request.params.id; //Movie ID will be taken from the URL   
+
+	//The data to use for the review will come from the request body
+	var dataToInsert = {
+		score: request.body.score,
+		body: request.body.body
+	};
+	//Look up the movie this review is for
+	Movie.findOne({_id: movieID},function(err,movie){
+		//Make sure there was no error
+		if(!err) {
+			//Add this review to the reviews arary
+			movie.reviews.push(dataToInsert);
+			movie.save();
+			console.log(movie.reviews.length+" and "+movie.reviews)
+			response.send(movie.reviews[movie.reviews.length-1]);
+		} else {
+			response.sendStatus(500); //Send an error to client
+		}
+	});
 }
