@@ -1,9 +1,16 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE <!DOCTYPE html>
+<html ng-app="movies">
 <head>
-	<title>Awesome API</title>
+	<link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css'>
+	<title>Movies</title>
 </head>
-<body>
-	Hello!
+<body ng-controller="MoviesController as collection">
+	<div ng-repeat="movie in collection.movies">
+		<h1> {{ movie.title }} </h1>
+		<p> {{ movie.overview }} </p>
+	</div>
+
+	<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/app/app.js"></script>
 </body>
 </html>
