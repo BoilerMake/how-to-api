@@ -17,6 +17,7 @@ var bodyParser = require('body-parser'); //BodyParser allows us to easily parse 
 var env = require('node-env-file'); //Allows us to set enviornment variables
 var mongoose = require('mongoose'); //Allows us to work with our database (mongoDB)
 var validator = require('express-validator'); //Allows us to check POST data to make sure its valid
+var cors = require('cors'); //Allows our server to respond to requests from other servers
 
 
 env('.env'); //Load enviornment variables from our .env file into process.env
@@ -36,41 +37,22 @@ var app = express(); //Initialize an Express application, save it to a variable
 app.set('port',(process.env.PORT || 8080)); //If we set a port we set in our .env file use that, otherwise use 8080
 app.set('ip',(process.env.IP || "localhost")); //If we set a port we set in our .env file use that, otherwise use 8080
 
-//Let express know we want it to use the bodyParser library we loaded earlier
+/*
+ * Set up middleware on our application using the modules we loaded earlier.  
+ */
 app.use(bodyParser.urlencoded({extended: true})); //Use bodyParser to read x-www-form-urlencoded data (like in Postman)
 app.use(bodyParser.json()); //Use bodyParser to read JSON data
 app.use(validator([])); //Use express validator to check POST data 
+app.use(cors()); //Allow requests from other servers
 
-
-/*
- * The table below lists the routes we will implement. 
- */
-
-/*
- * Application Routes
- * ------------------------------------------------------------------------------------------
- * URI 						| HTTP ACTION 		| POST Body 		| Result
- * ------------------------------------------------------------------------------------------
- * api/movies 	 			GET 			 	 Empty 				  List of all users
- * api/movies/:id 			GET    			 	 Empty   			  One user w/ details
- * api/movies 				POST 				 JSON                 Adds provided user
- * api/movies/:id/reviews   POST  				 JSON    			  Adds provided review
- * ------------------------------------------------------------------------------------------
- */
-
-mainController = require('./controllers/mainController.js'); //Load the controller we made earlier from the /controllers folder
 
 /*
  * Connect our routes to functions in the controller we just loaded.
  * We can use app.get() or app.post() to create routes for get or post requests.
  * We pass in the url for the route, and then the function to handle it. 
  */
-
-app.get('/',mainController.helloWorld);
-app.get('/api/movies',mainController.getMovies);
-app.get('/api/movies/:id',mainController.getSingleMovie);
-app.post('/api/movies',mainController.addMovie);
-app.post('/api/movies/:id/reviews',mainController.addReview);
+mainController = require('./controllers/mainController.js'); //Load the controller we made earlier from the /controllers folder
+mainController.setupRoutes(app); //Run the setup method from the main controller
 
 
 listRoutes(); //Print the routes so we can check that things are working
