@@ -35,7 +35,7 @@ var movieSchema = new mongoose.Schema({
 
 
 /*
- * Now we take our schema and turn
+ * Now we take our movie schema and turn
  * it into a model for mongoose to use.
  * We use module.exports so we can require() 
  * this model into other files. 

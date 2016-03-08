@@ -11,8 +11,8 @@
 // First we load our dependencies. 
 var mongoose = require('mongoose'); //We need the mongoose library so we can work with our database.
 var Movie = require('../models/movie'); //We also need to load the Movie model.
+var validator = require('express-validator'); //Allows us to check POST data to make sure its valid
 
- 
 /*
  * This function gets called when a client makes a GET request
  * to the root of the app, like "www.myWebsite.com/".
@@ -45,6 +45,16 @@ exports.getMovies = function(request,response) {
  * The 'id' paramater lets us know which entry the client asked for.
  */
 exports.getSingleMovie = function(request,response) {
+
+	//Check to make sure our request is valid
+	request.checkParams('id','Invalid id').notEmpty().isMongoId();
+	var errors = request.validationErrors()
+	if(errors) {
+		//Request was invalid. Send back the error messages
+		response.send("Errors: "+JSON.stringify(errors));
+		return;
+	}
+
 	//We use findOne() here since we just want to get one movie.
 	//Like find, the first paramater lets us narrow down our search.
 	//We're asking for the entry which has an _id equal to request.params.id.
@@ -63,6 +73,17 @@ exports.getSingleMovie = function(request,response) {
  * The data we need to insert is given to us in the request body. 
  */
 exports.addMovie = function(request,response) {
+
+	//Check to make sure our request is valid
+	request.checkBody('description','Invalid description').notEmpty();
+	request.checkBody('title','Invalid title').notEmpty();
+	var errors = request.validationErrors()
+	if(errors) {
+		//Request was invalid. Send back the error messages
+		response.send("Errors: "+JSON.stringify(errors));
+		return;
+	}
+
 	//Collect the data we got from the client  
 	var dataToInsert = {
 		title: request.body.title,
@@ -88,14 +109,25 @@ exports.addMovie = function(request,response) {
  * We take that data and add it to the review array. 
  */
 exports.addReview = function(request,response) {
+	//Check to make sure our request is valid
+	request.checkBody('score','Invalid score').notEmpty().isInt();
+	request.checkBody('body','Invalid body').notEmpty();
+	request.checkParams('id','Invalid id').notEmpty().isMongoId();
+	var errors = request.validationErrors()
+	if(errors) {
+		//Request was invalid. Send back the error messages
+		response.send("Errors: "+JSON.stringify(errors));
+		return;
+	}
+
 	//Collect the data we got from the client
 	var movieID = request.params.id; //Movie ID will be taken from the URL   
-
 	//The data to use for the review will come from the request body
 	var dataToInsert = {
 		score: request.body.score,
 		body: request.body.body
 	};
+
 	//Look up the movie this review is for
 	Movie.findOne({_id: movieID},function(err,movie){
 		//Make sure there was no error
@@ -103,8 +135,7 @@ exports.addReview = function(request,response) {
 			//Add this review to the reviews arary
 			movie.reviews.push(dataToInsert);
 			movie.save();
-			console.log(movie.reviews.length+" and "+movie.reviews)
-			response.send(movie.reviews[movie.reviews.length-1]);
+			response.send(movie.reviews[movie.reviews.length-1].id); //Return just the id of the new movie here.
 		} else {
 			response.sendStatus(500); //Send an error to client
 		}

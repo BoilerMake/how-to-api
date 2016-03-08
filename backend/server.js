@@ -16,9 +16,16 @@ var express = require('express'); //Express lets us create a server with routes
 var bodyParser = require('body-parser'); //BodyParser allows us to easily parse data for POST requests
 var env = require('node-env-file'); //Allows us to set enviornment variables
 var mongoose = require('mongoose'); //Allows us to work with our database (mongoDB)
+var validator = require('express-validator'); //Allows us to check POST data to make sure its valid
+
 
 env('.env'); //Load enviornment variables from our .env file into process.env
 mongoose.connect(process.env.MONGODB); //Connect to our database using the address we set in .env
+
+mongoose.connection.on('error',console.error.bind(console, 'Mongoose connection error:'));
+mongoose.connection.once('open',function(){
+	console.log("Mongoose connected");
+});
 
 /*
  * Create our express application, set the port and ip address, 
@@ -32,6 +39,7 @@ app.set('ip',(process.env.IP || "localhost")); //If we set a port we set in our 
 //Let express know we want it to use the bodyParser library we loaded earlier
 app.use(bodyParser.urlencoded({extended: true})); //Use bodyParser to read x-www-form-urlencoded data (like in Postman)
 app.use(bodyParser.json()); //Use bodyParser to read JSON data
+app.use(validator([])); //Use express validator to check POST data 
 
 
 /*
@@ -46,6 +54,7 @@ app.use(bodyParser.json()); //Use bodyParser to read JSON data
  * api/movies 	 			GET 			 	 Empty 				  List of all users
  * api/movies/:id 			GET    			 	 Empty   			  One user w/ details
  * api/movies 				POST 				 JSON                 Adds provided user
+ * api/movies/:id/reviews   POST  				 JSON    			  Adds provided review
  * ------------------------------------------------------------------------------------------
  */
 
