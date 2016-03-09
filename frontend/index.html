@@ -5,11 +5,36 @@
 	<title>Movies</title>
 </head>
 <body ng-controller="MoviesController as collection">
-	<div ng-repeat="movie in collection.movies">
-		<h1> {{ movie.title }} </h1>
-		<p> {{ movie.overview }} </p>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Rotten Mangoes</h1>
+			<p>My movie reviewing application</p>
+		</div>
 	</div>
+	<div class="container">
+		<form ng-submit="collection.addNewMovie()">
+	        <input type="text" ng-model="collection.newMovie.title"  size="30" placeholder="Title">
+	        <input type="text" ng-model="collection.newMovie.description"  size="30" placeholder="Description">
+	        <input class="btn-primary" type="submit" value="add">
+      	</form>
 
+		<div ng-repeat="movie in collection.movies">
+			<div>
+				<h1> {{ movie.title }} </h1>
+				<p> {{ movie.description }} </p>
+				<input type="text" ng-model="movie.review.score" placeholder="Score">
+				<input type="text" ng-model="movie.review.body" placeholder="Review">
+				<form ng-submit="collection.addReview(movie)">
+		        	<input class="btn-primary" type="submit" value="add">
+		      	</form>
+		      	<h1>Reviews</h1>
+		      	<div ng-repeat="review in movie.reviews">
+		      		<h2> Score: {{ review.score }}</h2>
+		      		<p> {{ review.body }}</p>
+		      	</div>
+		    </div>
+		</div>
+	</div>
 	<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="/app/app.js"></script>
 </body>

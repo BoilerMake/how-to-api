@@ -63,6 +63,7 @@ exports.getSingleMovie = function(request,response) {
  * The data we need to insert is given to us in the request body. 
  */
 exports.addMovie = function(request,response) {
+
 	//Collect the data we got from the client  
 	var dataToInsert = {
 		title: request.body.title,
@@ -78,7 +79,7 @@ exports.addMovie = function(request,response) {
 			return console.error(err); //Print error if there was a problem
 	});
 	//Send the client the _id for the thing we just inserted
-	response.send(newMovie._id);
+	response.send(newMovie);
 }
 
 
