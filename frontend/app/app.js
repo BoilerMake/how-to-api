@@ -3,6 +3,11 @@ var app = angular.module('movies', []);
 app.controller("MoviesController", ['$http', function($http) {
 
 	var collection = this;
+	// var expandNewMovieEntry = false;
+
+	// angular.forEach(collection, function(movie) {
+	// 	movie.expandNewReviewEntry = false;
+	// })
 
 	$http({
 	 method: 'GET',
@@ -27,6 +32,7 @@ app.controller("MoviesController", ['$http', function($http) {
 		}).then(function successCallback(response) {
 			collection.newMovie = {};
 		    collection.movies.push(response.data);
+		    collection.expandNewMovieEntry = false;
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
@@ -42,7 +48,8 @@ app.controller("MoviesController", ['$http', function($http) {
 			}
 		}).then(function successCallback(response) {
 		    movie.review = {};
-		    movie.review.push(response.data);
+		    movie.reviews.push(response.data);
+		    movie.expandNewReviewEntry = false;
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
