@@ -1,9 +1,63 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE <!DOCTYPE html>
+<html ng-app="movies">
 <head>
-	<title>Awesome API</title>
+	<link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css'>
+	<title>Movies</title>
 </head>
-<body>
-	Hello!
+<body ng-controller="MoviesController as collection">
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Rotten Mangoes</h1>
+			<p>My movie reviewing application</p>
+		</div>
+	</div>
+	<div class="container">
+		<div class="form-group">
+			<button class="btn btn-default" type="submit" ng-click="collection.expandNewMovieEntry = true">Add new movie</button>
+			<button ng-show="collection.expandNewMovieEntry" class="btn btn-link" ng-click="collection.expandNewMovieEntry = false">Cancel</button>
+		</div>
+		<div ng-show="collection.expandNewMovieEntry">
+			<form ng-submit="collection.addNewMovie()">
+				<div class="form-group">
+			        <input type="text" ng-model="collection.newMovie.title"  size="30" placeholder="Title">
+			    </div>
+			    <div class="form-group">
+			        <input type="text" ng-model="collection.newMovie.description"  size="30" placeholder="Description">
+			    </div>
+		        <input class="btn-primary" type="submit" value="add">
+	      	</form>
+      	</div>
+
+		<div ng-repeat="movie in collection.movies">
+			<div>
+				<h1> {{ movie.title }} </h1>
+				<p> {{ movie.description }} </p>
+				<div class="form-group">
+					<button class="btn btn-default" type="submit" ng-click="movie.expandNewReviewEntry = true">Add new review</button>
+					<button ng-show="movie.expandNewReviewEntry"class="btn btn-link" ng-click="movie.expandNewReviewEntry = false">Cancel</button>
+				</div>
+				<div ng-show="movie.expandNewReviewEntry">
+					<form ng-submit="collection.addReview(movie)">
+						<div class="form-group">
+							<input type="text" ng-model="movie.review.score" placeholder="Score">
+						</div>
+						<div class="form-group">
+							<input type="text" ng-model="movie.review.body" placeholder="Review">
+						</div>
+			        	<input class="btn-primary" type="submit" value="add">
+		      		</form>
+		      	</div>
+		      	<div ng-show="movie.reviews.length > 0">
+			      	<h3>Reviews</h3>
+			      	<div ng-repeat="review in movie.reviews">
+			      		<h5> Score: {{ review.score }} </h5>
+			      		<p> {{ review.body }} </p>
+			      	</div>
+			    </div>
+		    </div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/app/app.js"></script>
 </body>
 </html>

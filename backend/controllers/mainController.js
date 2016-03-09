@@ -119,10 +119,9 @@ module.exports.setupRoutes = function(app) {
 			if(err)
 				return console.error(err); //Print error if there was a problem
 		});
-		//Send the client the _id for the thing we just inserted
-		response.send(newMovie._id);
+		//Send the client the new movie we just inserted
+		response.send(newMovie);
 	});
-
 
 	/*
 	 * This function is called when the client makes a POST request to "/api/movies/:id/reviews".
