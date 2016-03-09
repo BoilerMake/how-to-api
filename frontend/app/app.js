@@ -1,5 +1,7 @@
 var app = angular.module('movies', []);
 
+var API = "http://localhost:8080/api/"; //Your server url goes here
+
 app.controller("MoviesController", ['$http', function($http) {
 
 	var collection = this;
@@ -11,7 +13,7 @@ app.controller("MoviesController", ['$http', function($http) {
 
 	$http({
 	 method: 'GET',
-	 url: 'http://localhost:8080/api/movies',
+	 url: API+'movies',
 	 headers: {
 	   'Content-Type': undefined
 	 }
@@ -24,7 +26,7 @@ app.controller("MoviesController", ['$http', function($http) {
 	collection.addNewMovie = function() {
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8080/api/movies',
+			url: API+'movies',
 			data: {
 				title: collection.newMovie.title,
 				description: collection.newMovie.description
@@ -41,7 +43,7 @@ app.controller("MoviesController", ['$http', function($http) {
 	collection.addReview = function(movie) {
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8080/api/movies/' + movie._id + '/reviews',
+			url: API+'movies/' + movie._id + '/reviews',
 			data: {
 				score: movie.review.score,
 				body: movie.review.body

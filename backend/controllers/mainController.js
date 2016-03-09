@@ -155,7 +155,7 @@ module.exports.setupRoutes = function(app) {
 				//Add this review to the reviews arary
 				movie.reviews.push(dataToInsert);
 				movie.save();
-				response.send(movie.reviews[movie.reviews.length-1].id); //Return just the id of the new movie here.
+				response.send(movie.reviews[movie.reviews.length-1]); //Return just the id of the new movie here.
 			} else {
 				response.sendStatus(500); //Send an error to client
 			}
