@@ -16,7 +16,6 @@ var express = require('express'); //Express lets us create a server with routes
 var bodyParser = require('body-parser'); //BodyParser allows us to easily parse data for POST requests
 var env = require('node-env-file'); //Allows us to set enviornment variables
 var mongoose = require('mongoose'); //Allows us to work with our database (mongoDB)
-var validator = require('express-validator'); //Allows us to check POST data to make sure its valid
 var cors = require('cors'); //Allows our server to respond to requests from other servers
 
 
@@ -42,7 +41,6 @@ app.set('ip',(process.env.IP || "localhost")); //If we set a port we set in our 
  */
 app.use(bodyParser.urlencoded({extended: true})); //Use bodyParser to read x-www-form-urlencoded data (like in Postman)
 app.use(bodyParser.json()); //Use bodyParser to read JSON data
-app.use(validator([])); //Use express validator to check POST data 
 app.use(cors()); //Allow requests from other servers
 
 

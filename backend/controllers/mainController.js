@@ -11,7 +11,6 @@
 // First we load our dependencies. 
 var mongoose = require('mongoose'); //We need the mongoose library so we can work with our database.
 var Movie = require('../models/movie'); //We also need to load the Movie model.
-var validator = require('express-validator'); //Allows us to check POST data to make sure its valid
 
 
 /*
@@ -34,6 +33,7 @@ var validator = require('express-validator'); //Allows us to check POST data to 
  * all of the routes for our server to use
  */
 module.exports.setupRoutes = function(app) {
+	
 	/*
 	 * This function gets called when a client makes a GET request
 	 * to the root of the app, like "www.myWebsite.com/".
@@ -66,16 +66,6 @@ module.exports.setupRoutes = function(app) {
 	 * The 'id' paramater lets us know which entry the client asked for.
 	 */
 	app.get('/api/movies/:id',function(request,response) {
-
-		//Check to make sure our request is valid
-		request.checkParams('id','Invalid id').notEmpty().isMongoId();
-		var errors = request.validationErrors()
-		if(errors) {
-			//Request was invalid. Send back the error messages
-			response.send("Errors: "+JSON.stringify(errors));
-			return;
-		}
-
 		//We use findOne() here since we just want to get one movie.
 		//Like find, the first paramater lets us narrow down our search.
 		//We're asking for the entry which has an _id equal to request.params.id.
@@ -94,17 +84,6 @@ module.exports.setupRoutes = function(app) {
 	 * The data we need to insert is given to us in the request body. 
 	 */
 	app.post('/api/movies',function(request,response) {
-
-		//Check to make sure our request is valid
-		request.checkBody('description','Invalid description').notEmpty();
-		request.checkBody('title','Invalid title').notEmpty();
-		var errors = request.validationErrors()
-		if(errors) {
-			//Request was invalid. Send back the error messages
-			response.send("Errors: "+JSON.stringify(errors));
-			return;
-		}
-
 		//Collect the data we got from the client  
 		var dataToInsert = {
 			title: request.body.title,
@@ -114,13 +93,13 @@ module.exports.setupRoutes = function(app) {
 		var newMovie = new Movie(dataToInsert);
 
 		//Actually save our new movie to the database
-		newMovie.save(function(err,fluffy) {
+		newMovie.save(function(err) {
 			//Print an error message if something went wrong
 			if(err)
-				return console.error(err); //Print error if there was a problem
+				response.send(err); //Print error if there was a problem
+			else
+				response.send(newMovie);	//Send the client the new movie we just inserted
 		});
-		//Send the client the new movie we just inserted
-		response.send(newMovie);
 	});
 
 	/*
@@ -129,18 +108,7 @@ module.exports.setupRoutes = function(app) {
 	 * We take that data and add it to the review array. 
 	 */
 	app.post('/api/movies/:id/reviews',function(request,response) {
-		//Check to make sure our request is valid
-		request.checkBody('score','Invalid score').notEmpty().isInt();
-		request.checkBody('body','Invalid body').notEmpty();
-		request.checkParams('id','Invalid id').notEmpty().isMongoId();
-		var errors = request.validationErrors()
-		if(errors) {
-			//Request was invalid. Send back the error messages
-			response.send("Errors: "+JSON.stringify(errors));
-			return;
-		}
-
-		//Collect the data we got from the client
+		
 		var movieID = request.params.id; //Movie ID will be taken from the URL   
 		//The data to use for the review will come from the request body
 		var dataToInsert = {
@@ -149,15 +117,22 @@ module.exports.setupRoutes = function(app) {
 		};
 
 		//Look up the movie this review is for
-		Movie.findOne({_id: movieID},function(err,movie){
-			//Make sure there was no error
+		Movie.findOne({_id: movieID},function(err,movie) {
+			//Make sure there was no error finding this movie
 			if(!err) {
 				//Add this review to the reviews arary
 				movie.reviews.push(dataToInsert);
-				movie.save();
-				response.send(movie.reviews[movie.reviews.length-1]); //Return just the id of the new movie here.
+				//Save the review
+				movie.save(function(err) {
+					//Make sure our review was saved
+					if(err)
+						response.send(err); //Print error if there was a problem
+					else
+						response.send(movie.reviews[movie.reviews.length-1]);	//Send the client the new movie we just inserted
+				});
 			} else {
-				response.sendStatus(500); //Send an error to client
+				//We didn't find a movie with that ID. 
+				response.sendStatus(500); //Send an error to client.
 			}
 		});
 	});

@@ -15,11 +15,20 @@ var mongoose = require('mongoose'); //Allows us to work with our database (mongo
  * A schema is like a blueprint for things we 
  * want to insert into the database. Here we 
  * define what information we want to store
- * about each Movie Review.  
+ * about each Movie Review. We also create
+ * rules about what sorts of data is allowed.
  */
 var reviewSchema = new mongoose.Schema({
-  body: String,
-  score: Number
+  body: {
+  	type: String,
+  	required: [true, "Missing Review Body"]
+  },
+  score: {
+  	type: Number,
+  	required: [true, "Missing Review Score"],
+  	min: [0, "Score must be between 0 and 10"],
+  	max: [10, "Score must be between 0 and 10"],
+  }
 });
 
 /*
@@ -28,8 +37,14 @@ var reviewSchema = new mongoose.Schema({
  * reviews, so we add that here. 
  */
 var movieSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+  title: {
+  	type: String,
+  	required: [true, "Missing Title"]
+  },
+  description: {
+  	type: String,
+  	required: [true, "Missing Description"]
+  },
   reviews: [reviewSchema]
 });
 
