@@ -1,63 +1,76 @@
 <!DOCTYPE <!DOCTYPE html>
-<html ng-app="movies">
+<html ng-app='movies'>
 <head>
-	<link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css'>
-	<title>Movies</title>
+  <link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='/styles/styles.css'>
+  <title>Movies</title>
 </head>
-<body ng-controller="MoviesController as collection">
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Rotten Mangoes</h1>
-			<p>My movie reviewing application</p>
-		</div>
-	</div>
-	<div class="container">
-		<div class="form-group">
-			<button class="btn btn-default" type="submit" ng-click="collection.expandNewMovieEntry = true">Add new movie</button>
-			<button ng-show="collection.expandNewMovieEntry" class="btn btn-link" ng-click="collection.expandNewMovieEntry = false">Cancel</button>
-		</div>
-		<div ng-show="collection.expandNewMovieEntry">
-			<form ng-submit="collection.addNewMovie()">
-				<div class="form-group">
-			        <input type="text" ng-model="collection.newMovie.title"  size="30" placeholder="Title">
-			    </div>
-			    <div class="form-group">
-			        <input type="text" ng-model="collection.newMovie.description"  size="30" placeholder="Description">
-			    </div>
-		        <input class="btn-primary" type="submit" value="add">
-	      	</form>
-      	</div>
+<body ng-controller='MoviesController as collection' class='gradient-background'>
+	<nav class='navbar navbar-default'>
+		<div class='container'>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class='navbar-header'>
+      <a class='navbar-brand' href='#'>
+				<img src='public/logo.svg' />
+			</a>
+    </div>
 
-		<div ng-repeat="movie in collection.movies">
-			<div>
-				<h1> {{ movie.title }} </h1>
-				<p> {{ movie.description }} </p>
-				<div class="form-group">
-					<button class="btn btn-default" type="submit" ng-click="movie.expandNewReviewEntry = true">Add new review</button>
-					<button ng-show="movie.expandNewReviewEntry"class="btn btn-link" ng-click="movie.expandNewReviewEntry = false">Cancel</button>
-				</div>
-				<div ng-show="movie.expandNewReviewEntry">
-					<form ng-submit="collection.addReview(movie)">
-						<div class="form-group">
-							<input type="text" ng-model="movie.review.score" placeholder="Score">
-						</div>
-						<div class="form-group">
-							<input type="text" ng-model="movie.review.body" placeholder="Review">
-						</div>
-			        	<input class="btn-primary" type="submit" value="add">
-		      		</form>
-		      	</div>
-		      	<div ng-show="movie.reviews.length > 0">
-			      	<h3>Reviews</h3>
-			      	<div ng-repeat="review in movie.reviews">
-			      		<h5> Score: {{ review.score }} </h5>
-			      		<p> {{ review.body }} </p>
-			      	</div>
-			    </div>
-		    </div>
-		</div>
-	</div>
-	<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
-	<script type="text/javascript" src="/app/app.js"></script>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div>
+      <ul class='nav navbar-nav navbar-right'>
+        <li class='new-submission-link'><a ng-click='collection.expandNewMovieEntry = true'>New Submission <img src='public/plus.svg' /></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+	</nav>
+  <div class='container'>
+    <div class='card' ng-show='collection.expandNewMovieEntry'>
+			<h1 class='title'>New Movie Submission</h1>
+			<img ng-click='collection.expandNewMovieEntry = false' class='times' src='public/times.svg' />
+      <form ng-submit='collection.addNewMovie()'>
+        <div class='form-group'>
+						<label class='movie-label'>Title:</label>
+            <input class='movie-input' type='text' ng-model='collection.newMovie.title'  size='30' placeholder='Title'>
+          </div>
+          <div class='form-group'>
+						<label class='movie-label'>Description:</label>
+						<textarea class='movie-input' ng-model='collection.newMovie.description' cols='30'></textarea>
+            <!-- <input type='text' ng-model='collection.newMovie.description'  size='30' placeholder='Description'> -->
+          </div>
+            <input class='movie-submit' type='submit' value='Submit Movie'>
+          </form>
+        </div>
+
+    <div ng-repeat='movie in collection.movies'>
+      <div>
+        <h1> {{ movie.title }} </h1>
+        <p> {{ movie.description }} </p>
+        <div class='form-group'>
+          <button class='btn btn-default' type='submit' ng-click='movie.expandNewReviewEntry = true'>Add new review</button>
+          <button ng-show='movie.expandNewReviewEntry'class='btn btn-link' ng-click='movie.expandNewReviewEntry = false'>Cancel</button>
+        </div>
+        <div ng-show='movie.expandNewReviewEntry'>
+          <form ng-submit='collection.addReview(movie)'>
+            <div class='form-group'>
+              <input type='text' ng-model='movie.review.score' placeholder='Score'>
+            </div>
+            <div class='form-group'>
+              <input type='text' ng-model='movie.review.body' placeholder='Review'>
+            </div>
+                <input class='btn-primary' type='submit' value='add'>
+              </form>
+            </div>
+            <div ng-show='movie.reviews.length > 0'>
+              <h3>Reviews</h3>
+              <div ng-repeat='review in movie.reviews'>
+                <h5> Score: {{ review.score }} </h5>
+                <p> {{ review.body }} </p>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script type='text/javascript' src='/bower_components/angular/angular.min.js'></script>
+  <script type='text/javascript' src='/app/app.js'></script>
 </body>
 </html>
