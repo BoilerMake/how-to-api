@@ -87,7 +87,8 @@ module.exports.setupRoutes = function(app) {
 		//Collect the data we got from the client  
 		var dataToInsert = {
 			title: request.body.title,
-			description: request.body.description
+			description: request.body.description,
+			image: request.body.image
 		};
 		//Create a new Movie from that data
 		var newMovie = new Movie(dataToInsert);

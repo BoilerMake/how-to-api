@@ -50,6 +50,7 @@ var movieList = [
 	{
 		title: "Breaking Bad",
 		description: "Dying man builds drug empire and kills a lot of people",
+		image: "http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SX640_SY720_.jpg",
 		reviews: [ 
 			{
 			score: 10,

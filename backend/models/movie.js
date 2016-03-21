@@ -45,6 +45,9 @@ var movieSchema = new mongoose.Schema({
   	type: String,
   	required: [true, "Missing Description"]
   },
+  image: {
+    type: String,
+  },
   reviews: [reviewSchema]
 });
 
