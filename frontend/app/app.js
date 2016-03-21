@@ -1,14 +1,17 @@
 var app = angular.module('movies', []);
 
-var API = "http://localhost:9000/api/"; //Your server url goes here
-
 app.controller("MoviesController", ['$http', function($http) {
 
 	var collection = this;
+	// var expandNewMovieEntry = false;
+
+	// angular.forEach(collection, function(movie) {
+	// 	movie.expandNewReviewEntry = false;
+	// })
 
 	$http({
 	 method: 'GET',
-	 url: API+'movies',
+	 url: 'http://localhost:9000/api/movies',
 	 headers: {
 	   'Content-Type': undefined
 	 }
@@ -21,7 +24,7 @@ app.controller("MoviesController", ['$http', function($http) {
 	collection.addNewMovie = function() {
 		$http({
 			method: 'POST',
-			url: API+'movies',
+			url: 'http://localhost:9000/api/movies',
 			data: {
 				title: collection.newMovie.title,
 				description: collection.newMovie.description
@@ -38,7 +41,7 @@ app.controller("MoviesController", ['$http', function($http) {
 	collection.addReview = function(movie) {
 		$http({
 			method: 'POST',
-			url: API+'movies/' + movie._id + '/reviews',
+			url: 'http://localhost:9000/api/movies/' + movie._id + '/reviews',
 			data: {
 				score: movie.review.score,
 				body: movie.review.body
