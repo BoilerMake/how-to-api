@@ -24,10 +24,6 @@
   </div><!-- /.container-fluid -->
 	</nav>
   <div class='container'>
-    <div class='form-group'>
-      <button class='btn btn-default' type='submit' ng-click='collection.expandNewMovieEntry = true'>Add new movie</button>
-      <button ng-show='collection.expandNewMovieEntry' class='btn btn-link' ng-click='collection.expandNewMovieEntry = false'>Cancel</button>
-    </div>
     <div class='card' ng-show='collection.expandNewMovieEntry'>
 			<h1 class='title'>New Movie Submission</h1>
 			<img ng-click='collection.expandNewMovieEntry = false' class='times' src='public/times.svg' />
