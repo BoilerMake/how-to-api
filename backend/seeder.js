@@ -30,24 +30,6 @@ Movie.find({},function(err,movies){
 //Load sample data to insert into the database
 var movieList = [
 	{
-		title: "Hello World",
-		description: "A romantic love story about two programmers who learn that life isn't just about coding",
-		reviews: [ 
-			{
-			score: 10,
-			body: "Incredible. Easily the best movie I have ever seen in my whole life! I loved the part with the evil robot."
-			}, 
-			{
-			score: 7,
-			body: "Pretty great. Really touching movie. Not enough coding though."
-			},
-			{
-			score: 6,
-			body: "I've seen better."
-			}
-		]
-	},
-	{
 		title: "Breaking Bad",
 		description: "Dying man builds drug empire and kills a lot of people",
 		image: "http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SX640_SY720_.jpg",
@@ -69,6 +51,7 @@ var movieList = [
 	{
 		title: "StarTrek",
 		description: "It has spaceships and aliens and lazers. What more could you ask for?",
+		image: "http://images.fashionnstyle.com/data/images/full/18723/star-trek.jpg?w=600",
 		reviews: [ 
 			{
 			score: 10,
@@ -87,6 +70,7 @@ var movieList = [
 	{
 		title: "Rick and Morty",
 		description: "Honestly its hard to describe but it's pretty cool",
+		image: "http://i.jeded.com/i/rick-and-morty-first-season.16200.jpg",
 		reviews: [ 
 			{
 			score: 9,
@@ -99,6 +83,24 @@ var movieList = [
 			{
 			score: 9,
 			body: "Bird Person is my favorite character. I can't wait to see how it ends..."
+			}
+		]
+	},
+	{
+		title: "Hello World",
+		description: "A romantic love story about two programmers who learn that life isn't just about coding",
+		reviews: [ 
+			{
+			score: 10,
+			body: "Incredible. Easily the best movie I have ever seen in my whole life! I loved the part with the evil robot."
+			}, 
+			{
+			score: 7,
+			body: "Pretty great. Really touching movie. Not enough coding though."
+			},
+			{
+			score: 6,
+			body: "I've seen better."
 			}
 		]
 	}

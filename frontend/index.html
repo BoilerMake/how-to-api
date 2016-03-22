@@ -44,7 +44,15 @@
       <div class='card thin-card' ng-repeat='movie in collection.movies'>
         <div>
           <h1 class='title movie-title'> {{ movie.title }} </h1>
+
+          <!-- Image -->
+          <div class="movie-image">
+            <img src="{{ movie.image}}" width="200" height="300"/>  
+          </div>
+
+
           <p> {{ movie.description }} </p>
+
           <div class='form-group'>
             <button class='btn btn-default' type='submit' ng-click='movie.expandNewReviewEntry = true'>Add new review</button>
           </div>
