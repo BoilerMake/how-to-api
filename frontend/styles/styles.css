@@ -186,6 +186,29 @@
   border-bottom: 1px solid #fff;
 }
 
+.review-wrapper {
+  text-align: center;
+}
+
+.review-submit {
+  margin-top: 20px;
+  background-color: #FE886D;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 5px solid #FF6E4E;
+  font-size: 1.5em;
+  color: white;
+  padding: 5px 10px;
+  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+}
+
+.review-header {
+  font-weight: bold;
+}
+
 @media (min-width: 992px) {
   .add-movie {
     max-width: 51.5em;

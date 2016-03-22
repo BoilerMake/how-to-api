@@ -50,11 +50,10 @@
             <img src="{{movie.image}}" width="200" height="300"/>  
           </div>
 
-
           <p> {{ movie.description }} </p>
 
-          <div class='form-group'>
-            <button class='btn btn-default' type='submit' ng-click='movie.expandNewReviewEntry = true'>Add new review</button>
+          <div class='form-group review-wrapper'>
+            <button class='review-submit' type='submit' ng-click='movie.expandNewReviewEntry = true'>New review</button>
           </div>
 
           <div class="card" ng-show='movie.expandNewReviewEntry'>
@@ -74,7 +73,7 @@
           </div>
 
           <div ng-show='movie.reviews.length > 0'>
-            <h3>Reviews</h3>
+            <h3 class="title review-header">Reviews</h3>
             <div ng-repeat='review in movie.reviews'>
             <h5> Score: {{ review.score }} </h5>
             <p> {{ review.body }} </p>
