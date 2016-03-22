@@ -47,20 +47,25 @@
         <p> {{ movie.description }} </p>
         <div class='form-group'>
           <button class='btn btn-default' type='submit' ng-click='movie.expandNewReviewEntry = true'>Add new review</button>
-          <button ng-show='movie.expandNewReviewEntry'class='btn btn-link' ng-click='movie.expandNewReviewEntry = false'>Cancel</button>
         </div>
-        <div ng-show='movie.expandNewReviewEntry'>
+
+        <div class="card" ng-show='movie.expandNewReviewEntry'>
+          <h3 class='title'>New Review</h3>
+          <img ng-click='movie.expandNewReviewEntry = false' class='times' src='public/times.svg' />
           <form ng-submit='collection.addReview(movie)'>
             <div class='form-group'>
-              <input type='text' ng-model='movie.review.score' placeholder='Score'>
+              <label class='movie-label'>Score:</label>
+              <input class="movie-input" type='text' ng-model='movie.review.score' placeholder='Score'>
             </div>
             <div class='form-group'>
-              <input type='text' ng-model='movie.review.body' placeholder='Review'>
+              <label class='movie-label'>Review:</label>
+              <input class="movie-input" type='text' ng-model='movie.review.body' placeholder='Review'>
             </div>
-                <input class='btn-primary' type='submit' value='add'>
+                <input class='movie-submit' type='submit' value='Add'>
               </form>
-            </div>
-            <div ng-show='movie.reviews.length > 0'>
+        </div>
+
+        <div ng-show='movie.reviews.length > 0'>
               <h3>Reviews</h3>
               <div ng-repeat='review in movie.reviews'>
                 <h5> Score: {{ review.score }} </h5>
