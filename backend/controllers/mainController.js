@@ -60,19 +60,24 @@ module.exports.setupRoutes = function(app) {
 		});
 	});
 
-/*
- * This function is called when the client makes a POST request to "/api/movies".
- * The data we need to insert is given to us in the request body. 
- */
-exports.addMovie = function(request,response) {
-
-	//Collect the data we got from the client  
-	var dataToInsert = {
-		title: request.body.title,
-		description: request.body.description
-	};
-	//Create a new Movie from that data
-	var newMovie = new Movie(dataToInsert);
+	/*
+	 * This function gets called when a client makes a GET request to "/api/movies/<something>"
+	 * It sends one specific entry from our data array to the client. 
+	 * The 'id' paramater lets us know which entry the client asked for.
+	 */
+	app.get('/api/movies/:id',function(request,response) {
+		//We use findOne() here since we just want to get one movie.
+		//Like find, the first paramater lets us narrow down our search.
+		//We're asking for the entry which has an _id equal to request.params.id.
+		Movie.findOne({_id: request.params.id},function(err,movie){
+			//Make sure there was no error
+			if(!err) {
+				response.send(movie); //Send result to client
+			} else {
+				response.sendStatus(500); //Send an error to client
+			}
+		});
+	});
 
 	/*
 	 * This function is called when the client makes a POST request to "/api/movies".
@@ -97,9 +102,6 @@ exports.addMovie = function(request,response) {
 				response.send(newMovie);	//Send the client the new movie we just inserted
 		});
 	});
-	//Send the client the _id for the thing we just inserted
-	response.send(newMovie);
-}
 
 	/*
 	 * This function is called when the client makes a POST request to "/api/movies/:id/reviews".
