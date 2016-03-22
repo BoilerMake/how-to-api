@@ -186,7 +186,15 @@
   border-bottom: 1px solid #fff;
 }
 
-.review-wrapper {
+.movie-description::after {
+  display: block;
+  margin-top: 10px;
+  content: '';
+  width: 100%;
+  border-bottom: 1px solid #fff;
+}
+
+.center-wrapper {
   text-align: center;
 }
 
@@ -206,6 +214,28 @@
 }
 
 .review-header {
+  font-weight: bold;
+}
+
+.review-dropdown-icon {
+  height: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25px;
+  cursor: pointer;
+  -o-transition:opacity .2s ease-out;
+  -ms-transition:opacity .2s ease-out;
+  -moz-transition:opacity .2s ease-out;
+  -webkit-transition:opacity .2s ease-out;
+  transition:opacity .2s ease-out;
+}
+
+.review-dropdown-icon:hover {
+  opacity: 0.7;
+}
+
+.review-score {
+  color: #FF6E4E;
   font-weight: bold;
 }
 

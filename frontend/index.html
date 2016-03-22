@@ -43,22 +43,26 @@
     <!-- <div class='movie-container'> -->
       <div class='card thin-card' ng-repeat='movie in collection.movies'>
         <div>
+          <!-- Movie Title -->
           <h1 class='title movie-title'> {{ movie.title }} </h1>
 
-          <!-- Image -->
+          <!-- Movie Image -->
           <div class="movie-image">
             <img src="{{movie.image}}" width="200" height="300"/>  
           </div>
 
-          <p> {{ movie.description }} </p>
+          <!-- Movie Description -->
+          <p class="movie-description"> {{ movie.description }} </p>
 
-          <div class='form-group review-wrapper'>
-            <button class='review-submit' type='submit' ng-click='movie.expandNewReviewEntry = true'>New review</button>
+          <!-- Movie Review Icon -->
+          <div ng-hide='movie.expandNewReviewEntry' class='form-group center-wrapper'>
+            <img ng-click='movie.expandNewReviewEntry = true' class='review-dropdown-icon' src='public/plus.svg' />
           </div>
 
-          <div class="card" ng-show='movie.expandNewReviewEntry'>
+          <!-- Movie Review Section -->
+          <div ng-show='movie.expandNewReviewEntry'>
+            <!-- New Review Form -->
             <h3 class='title'>New Review</h3>
-            <img ng-click='movie.expandNewReviewEntry = false' class='times' src='public/times.svg' />
             <form ng-submit='collection.addReview(movie)'>
               <div class='form-group'>
                 <label class='movie-label'>Score:</label>
@@ -70,15 +74,24 @@
               </div>
               <input class='movie-submit' type='submit' value='Add'>
             </form>
-          </div>
 
-          <div ng-show='movie.reviews.length > 0'>
-            <h3 class="title review-header">Reviews</h3>
-            <div ng-repeat='review in movie.reviews'>
-            <h5> Score: {{ review.score }} </h5>
-            <p> {{ review.body }} </p>
-          </div>
+            <!-- List of Existing Reviews -->
+            <div ng-show='movie.reviews.length > 0'>
+              <h3 class="title review-header">Reviews</h3>
+              <div ng-repeat='review in movie.reviews'>
+              <h5 class="review-score"> Score: {{ review.score }} </h5>
+              <p> {{ review.body }} </p>
+              </div>
+            </div>
+            <!-- Close Review Button -->
+            <div class='form-group center-wrapper'>
+              <img ng-click='movie.expandNewReviewEntry = false' class='review-dropdown-icon' src='public/times.svg' />
+            </div>
+
         </div>
+          
+
+
       </div>
     </div>
     <div class='card thin-card'></div>

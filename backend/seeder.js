@@ -48,20 +48,20 @@ var movieList = [
 		]
 	},
 	{
-		title: "Star Trek",
-		description: "It has spaceships and aliens and lazers. What more could you ask for?",
+		title: "The Martian",
+		description: "What happens when NASA accidentally leaves somebody on Mars.",
 		reviews: [ 
 			{
 			score: 10,
-			body: "Its pretty great! My favorite episode was the one with the spaceship!"
+			body: "Mark Watney is super cool! I hope he survives!"
 			}, 
 			{
-			score: 7,
-			body: "I liked the aliens."
+			score: 9,
+			body: "I want to visit Mars and see where this was filmed!"
 			},
 			{
-			score: 5,
-			body: "Too much space for my liking."
+			score: 3,
+			body: "Not enough aliens."
 			}
 		]
 	},
@@ -84,23 +84,41 @@ var movieList = [
 		]
 	},
 	{
-		title: "Hello World",
-		description: "A romantic love story about two programmers who learn that life isn't just about coding",
+		title: "House of Cards",
+		description: "A show about politicians and some serious schemes",
 		reviews: [ 
 			{
 			score: 10,
-			body: "Incredible. Easily the best movie I have ever seen in my whole life! I loved the part with the evil robot."
+			body: "Amazing. Frank is really cool!"
+			}, 
+			{
+			score: 9,
+			body: "Freddy is my favorite character!"
+			},
+			{
+			score: 8,
+			body: "Frank and Claire are the best couple ever!"
+			}
+		]
+	},
+	{
+		title: "Star Trek",
+		description: "It has spaceships and aliens and lazers. What more could you ask for?",
+		reviews: [ 
+			{
+			score: 10,
+			body: "Its pretty great! My favorite episode was the one with the spaceship!"
 			}, 
 			{
 			score: 7,
-			body: "Pretty great. Really touching movie. Not enough coding though."
+			body: "I liked the aliens."
 			},
 			{
-			score: 6,
-			body: "I've seen better."
+			score: 5,
+			body: "Too much space for my liking."
 			}
 		]
-	}
+	},
 ];
 
 //Add our fake data into our database collection
