@@ -13,7 +13,7 @@ This repo represents the finished version of the product after all of the walkth
 3. In the frontend folder, run `bower install`
 4. Run `mongod`
 5. In the backend folder, run `node seeder.js` and then run `node server.js`
-6. In the frontend folder, run `http-serve -p 8081`
+6. In the frontend folder, run `http-server -p 8081`
 7. Visit `localhost:8081` and view the running app!
 
 ##Thanks
