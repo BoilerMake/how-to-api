@@ -32,7 +32,6 @@ var movieList = [
 	{
 		title: "Breaking Bad",
 		description: "Dying man builds drug empire and kills a lot of people",
-		image: "http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SX640_SY720_.jpg",
 		reviews: [ 
 			{
 			score: 10,
@@ -49,9 +48,8 @@ var movieList = [
 		]
 	},
 	{
-		title: "StarTrek",
+		title: "Star Trek",
 		description: "It has spaceships and aliens and lazers. What more could you ask for?",
-		image: "http://images.fashionnstyle.com/data/images/full/18723/star-trek.jpg?w=600",
 		reviews: [ 
 			{
 			score: 10,
@@ -70,7 +68,6 @@ var movieList = [
 	{
 		title: "Rick and Morty",
 		description: "Honestly its hard to describe but it's pretty cool",
-		image: "http://i.jeded.com/i/rick-and-morty-first-season.16200.jpg",
 		reviews: [ 
 			{
 			score: 9,

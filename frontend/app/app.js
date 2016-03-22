@@ -5,11 +5,6 @@ var API = "http://localhost:8080/api/"; //Your server url goes here
 app.controller("MoviesController", ['$http', function($http) {
 
 	var collection = this;
-	// var expandNewMovieEntry = false;
-
-	// angular.forEach(collection, function(movie) {
-	// 	movie.expandNewReviewEntry = false;
-	// })
 
 	$http({
 	 method: 'GET',
@@ -19,10 +14,17 @@ app.controller("MoviesController", ['$http', function($http) {
 	 }
 	}).then(function success(response) {
 		collection.movies = response.data;
+		collection.movies.forEach(function(movie){
+			fetchMovieImage(movie);
+		});
+
 	}, function error(error){
 		console.log(error);
 	});
 
+	/**
+	 * Adds a new movie to the array. 
+	 */
 	collection.addNewMovie = function() {
 		$http({
 			method: 'POST',
@@ -32,14 +34,24 @@ app.controller("MoviesController", ['$http', function($http) {
 				description: collection.newMovie.description
 			}
 		}).then(function successCallback(response) {
-			collection.newMovie = {};
-		    collection.movies.push(response.data);
-		    collection.expandNewMovieEntry = false;
+			if(response.data.title != null && response.data.description != null) {
+				console.log(JSON.stringify(response.data));
+				collection.newMovie = {};
+			    collection.movies.push(response.data);
+			    collection.expandNewMovieEntry = false;
+			    fetchMovieImage(response.data);
+			} else {
+				console.log("Failed: "+JSON.stringify(response.data));
+			}
+			
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
 	};
 
+	/**
+	 * Adds a new review to the array
+	 */
 	collection.addReview = function(movie) {
 		$http({
 			method: 'POST',
@@ -49,12 +61,34 @@ app.controller("MoviesController", ['$http', function($http) {
 				body: movie.review.body
 			}
 		}).then(function successCallback(response) {
-		    movie.review = {};
-		    movie.reviews.push(response.data);
-		    movie.expandNewReviewEntry = false;
+			if(response.data.score != null && response.data.body != null) {
+				movie.review = {};
+		    	movie.reviews.push(response.data);
+		    	movie.expandNewReviewEntry = false;
+			} else {
+				console.log("Failed: "+JSON.stringify(response.data));
+			}
+		    
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
 	};
 
+	/**
+	 * Fetches the image for the given movie and updates data.  
+	 */
+	function fetchMovieImage(movie) {
+		$http({
+		 method: 'GET',
+		 url: 'http://www.omdbapi.com/?t='+movie.title+'&y=&plot=short&r=json',
+		 headers: {
+		   'Content-Type': undefined
+		 }
+		}).then(function(response){
+			if(response.data.Poster != null) 
+				movie.image = response.data.Poster;
+		},function(error){
+	    	console.log(error);
+		})
+	}
 }]);
