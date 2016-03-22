@@ -40,7 +40,6 @@
         <input class='movie-submit' type='submit' value='Submit Movie'>
       </form>
     </div>
-    <!-- <div class='movie-container'> -->
       <div class='card thin-card' ng-repeat='movie in collection.movies'>
         <div>
           <!-- Movie Title -->
@@ -74,7 +73,7 @@
               </div>
               <input class='movie-submit' type='submit' value='Add'>
             </form>
-
+            
             <!-- List of Existing Reviews -->
             <div ng-show='movie.reviews.length > 0'>
               <h3 class="title review-header">Reviews</h3>
@@ -96,7 +95,7 @@
     </div>
     <div class='card thin-card'></div>
     <div class='card thin-card'></div>
-  <!-- </div> -->
+    <!-- <div class='movie-container'> -->
   <script type='text/javascript' src='/bower_components/angular/angular.min.js'></script>
   <script type='text/javascript' src='/app/app.js'></script>
 </body>

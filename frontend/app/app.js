@@ -64,7 +64,6 @@ app.controller("MoviesController", ['$http', function($http) {
 			if(response.data.score != null && response.data.body != null) {
 				movie.review = {};
 		    	movie.reviews.push(response.data);
-		    	movie.expandNewReviewEntry = false;
 			} else {
 				console.log("Failed: "+JSON.stringify(response.data));
 			}
