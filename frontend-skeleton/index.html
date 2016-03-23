@@ -23,10 +23,12 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 	</nav>
+
+  <!--Add new movie-->
   <div class='container movie-container'>
-    <div class='card add-movie'>
+    <div class='card add-movie' ng-show='collection.expandNewMovieEntry'>
 			<h1 class='title'>New Movie Submission</h1>
-			<img class='times' src='public/times.svg' />
+			<img ng-click='collection.expandNewMovieEntry = false' class='times' src='public/times.svg' />
       <form>
         <div class='form-group'>
 					<label class='movie-label'>Title:</label>
