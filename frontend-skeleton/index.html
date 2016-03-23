@@ -39,58 +39,60 @@
         <input class='movie-submit' type='submit' value='Submit Movie'>
       </form>
     </div>
-      <div class='card thin-card' ng-repeat='movie in collection.movies'>
-        <div>
-          <!-- Movie Title -->
-          <h1 class='title movie-title'></h1>
 
-          <!-- Movie Image -->
-          <div class="movie-image">
-            <img width="200" height="300"/>  
-          </div>
+    <!--Movie Entry-->
+    <div class='card thin-card' ng-repeat='movie in collection.movies'>
+      <div>
+        <!-- Movie Title -->
+        <h1 class='title movie-title'></h1>
 
-          <!-- Movie Description -->
-          <p class="movie-description"></p>
-
-          <!-- Movie Review Icon -->
-          <div class='form-group center-wrapper'>
-            <img class='review-dropdown-icon' src='public/plus.svg' />
-          </div>
-
-          <!-- Movie Review Section -->
-          <div>
-            <!-- New Review Form -->
-            <h3 class='title'>New Review</h3>
-            <form>
-              <div class='form-group'>
-                <label class='movie-label'>Score:</label>
-                <input class="movie-input" type='text' placeholder='Score'>
-              </div>
-              <div class='form-group'>
-                <label class='movie-label'>Review:</label>
-                <input class="movie-input" type='text' placeholder='Review'>
-              </div>
-              <input class='movie-submit' type='submit' value='Add'>
-            </form>
-            
-            <!-- List of Existing Reviews -->
-            <div>
-              <h3 class="title review-header">Reviews</h3>
-              <div>
-                <h5 class="review-score"></h5>
-                <p></p>
-              </div>
-            </div>
-            <!-- Close Review Button -->
-            <div class='form-group center-wrapper'>
-              <img class='review-dropdown-icon' src='public/times.svg' />
-            </div>
+        <!-- Movie Image -->
+        <div class="movie-image">
+          <img width="200" height="300"/>  
         </div>
+
+        <!-- Movie Description -->
+        <p class="movie-description"></p>
+
+        <!-- Movie Review Icon -->
+        <div class='form-group center-wrapper'>
+          <img class='review-dropdown-icon' src='public/plus.svg' />
+        </div>
+
+        <!-- Movie Review Section -->
+        <div>
+          <!-- New Review Form -->
+          <h3 class='title'>New Review</h3>
+          <form>
+            <div class='form-group'>
+              <label class='movie-label'>Score:</label>
+              <input class="movie-input" type='text' placeholder='Score'>
+            </div>
+            <div class='form-group'>
+              <label class='movie-label'>Review:</label>
+              <input class="movie-input" type='text' placeholder='Review'>
+            </div>
+            <input class='movie-submit' type='submit' value='Add'>
+          </form>
+          
+          <!-- List of Existing Reviews -->
+          <div>
+            <h3 class="title review-header">Reviews</h3>
+            <div>
+              <h5 class="review-score"></h5>
+              <p></p>
+            </div>
+          </div>
+          <!-- Close Review Button -->
+          <div class='form-group center-wrapper'>
+            <img class='review-dropdown-icon' src='public/times.svg' />
+          </div>
       </div>
     </div>
-    <div class='card thin-card'></div>
-    <div class='card thin-card'></div>
-    <!-- <div class='movie-container'> -->
+  </div>
+  <div class='card thin-card'></div>
+  <div class='card thin-card'></div>
+
   <script type='text/javascript' src='/bower_components/angular/angular.min.js'></script>
   <script type='text/javascript' src='/app/app.js'></script>
 </body>

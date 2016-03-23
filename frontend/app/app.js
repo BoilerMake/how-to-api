@@ -13,6 +13,7 @@ app.controller("MoviesController", ['$http', function($http) {
 	   'Content-Type': undefined
 	 }
 	}).then(function success(response) {
+		collection.movies = response.data;
 		angular.forEach(collection.movies, function(movie) {
 			fetchMovieImage(movie);
 		})
