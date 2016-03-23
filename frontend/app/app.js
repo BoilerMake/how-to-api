@@ -1,5 +1,5 @@
 var app = angular.module('movies', []);
-var API = "http://localhost:9000/api/"; //Your server url goes here
+var API = "http://localhost:8080/api/"; //Your server url goes here
 
 
 app.controller("MoviesController", ['$http', function($http) {
@@ -23,7 +23,7 @@ app.controller("MoviesController", ['$http', function($http) {
 	});
 
 	/**
-	 * Adds a new movie to the array. 
+	 * Adds a new movie to the array.
 	 */
 	collection.addNewMovie = function() {
 		$http({
@@ -43,7 +43,7 @@ app.controller("MoviesController", ['$http', function($http) {
 			} else {
 				console.log("Failed: "+JSON.stringify(response.data));
 			}
-			
+
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
@@ -67,14 +67,14 @@ app.controller("MoviesController", ['$http', function($http) {
 			} else {
 				console.log("Failed: "+JSON.stringify(response.data));
 			}
-		    
+
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
 	};
 
 	/**
-	 * Fetches the image for the given movie and updates data.  
+	 * Fetches the image for the given movie and updates data.
 	 */
 	function fetchMovieImage(movie) {
 		$http({
@@ -84,7 +84,7 @@ app.controller("MoviesController", ['$http', function($http) {
 		   'Content-Type': undefined
 		 }
 		}).then(function(response){
-			if(response.data.Poster != null) 
+			if(response.data.Poster != null)
 				movie.image = response.data.Poster;
 		},function(error){
 	    	console.log(error);

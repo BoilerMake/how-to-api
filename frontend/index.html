@@ -46,7 +46,7 @@
 
           <!-- Movie Image -->
           <div class="movie-image">
-            <img ng-src="{{movie.image}}" width="200" height="300"/>  
+            <img ng-src="{{movie.image}}" width="200" height="300"/>
           </div>
 
           <!-- Movie Description -->
@@ -54,7 +54,7 @@
 
           <!-- Movie Review Icon -->
           <div ng-hide='movie.expandNewReviewEntry' class='form-group center-wrapper'>
-            <img ng-click='movie.expandNewReviewEntry = true' class='review-dropdown-icon' src='public/plus.svg' />
+            <img ng-click='movie.expandNewReviewEntry = true' class='review-dropdown-icon' src='public/chevron.svg' />
           </div>
 
           <!-- Movie Review Section -->
@@ -64,17 +64,17 @@
             <form ng-submit='collection.addReview(movie)'>
               <div class='form-group'>
                 <label class='movie-label'>Score:</label>
-                <input class="movie-input" type='text' ng-model='movie.review.score' placeholder='Score'>
+                <input class="movie-input review-input" type='text' ng-model='movie.review.score' placeholder='Score'>
               </div>
               <div class='form-group'>
                 <label class='movie-label'>Review:</label>
-                <input class="movie-input" type='text' ng-model='movie.review.body' placeholder='Review'>
+                <textarea class="movie-input review-input" type='text' ng-model='movie.review.body' placeholder='Review'>
               </div>
-              <input class='movie-submit' type='submit' value='Add'>
+              <input class='movie-submit review-submit' type='submit' value='Add'>
             </form>
-            
+
             <!-- List of Existing Reviews -->
-            <div ng-show='movie.reviews.length > 0'>
+            <div class='review-container' ng-show='movie.reviews.length > 0'>
               <h3 class="title review-header">Reviews</h3>
               <div ng-repeat='review in movie.reviews'>
               <h5 class="review-score"> Score: {{ review.score }} </h5>
@@ -83,7 +83,7 @@
             </div>
             <!-- Close Review Button -->
             <div class='form-group center-wrapper'>
-              <img ng-click='movie.expandNewReviewEntry = false' class='review-dropdown-icon' src='public/times.svg' />
+              <img ng-click='movie.expandNewReviewEntry = false' class='review-dropdown-icon upside-down' src='public/chevron.svg' />
             </div>
         </div>
       </div>
