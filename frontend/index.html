@@ -37,6 +37,7 @@
 			<img ng-click='collection.expandNewMovieEntry = false' class='times' src='public/times.svg' />
 
 			<!-- When the form is submitted, call the addNewMovie() method in our controller -->
+			<!-- Add new movie -->
 			<form ng-submit='collection.addNewMovie()'>
 				<div class='form-group'>
 					<label class='movie-label'>Title:</label>
@@ -52,6 +53,7 @@
 		</div>
 
 		<!-- ng-repeat will create a copy of this section for each movie in our collection.movies array -->
+		<!--Movie Entry-->
 		<div class='card thin-card' ng-repeat='movie in collection.movies'>
 			<div>
 				<!-- Movie Title -->
@@ -71,6 +73,7 @@
 				</div>
 
 				<!-- Movie Review Section. This is only shown if expandNewReviewEntry is true -->
+				<!-- Movie Review -->
 				<div ng-show='movie.expandNewReviewEntry'>
 					<!-- New Review Form -->
 					<h3 class='title'>New Review</h3>
