@@ -1,2 +1,0 @@
-#This is an example env file. Rename it to .env
-MONGODB="mongodb://localhost/myMovieDatabase"
