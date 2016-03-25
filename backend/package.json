@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "Rotten Mangoes Backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Provides an API for the frontend to manipulate data.",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.14.2",
@@ -11,11 +11,6 @@
     "mongoose": "^4.4.3",
     "node-env-file": "^0.1.8"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "",
+  "author": "The BoilerCamp Team",
   "license": "ISC"
 }

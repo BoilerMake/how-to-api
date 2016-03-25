@@ -1,2 +1,5 @@
 #This is an example env file. Rename it to .env
+#When the server starts, we load these values. 
+#Then we can get the values using process.env.NAME_OF_VARIABLE
+#So in this case process.env.MONGODB would return the value defined here. 
 MONGODB="mongodb://localhost/myMovieDatabase"
