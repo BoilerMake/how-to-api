@@ -1,5 +1,5 @@
 var app = angular.module('movies', []);
-var API = "http://localhost:9000/api/"; //Your server url goes here
+var API = "http://localhost:8080/api/"; //Your server url goes here
 
 /**
  * Here we define a new controller called MoviesController. 
