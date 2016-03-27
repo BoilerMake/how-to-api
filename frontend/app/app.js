@@ -1,5 +1,5 @@
 var app = angular.module('movies', []);
-var API = "http://localhost:8080/api/"; //Your server url goes here
+var API = "http://localhost:9000/api/"; //Your server url goes here
 
 /**
  * Here we define a new controller called MoviesController. 
@@ -8,35 +8,64 @@ var API = "http://localhost:8080/api/"; //Your server url goes here
 app.controller("MoviesController", ['$http', function($http) {
 
 	var collection = this; //Save this controller 
+
+	function init() {
+		$http({
+		 method: 'GET',
+		 url: API+'movies',
+		 headers: {
+		   'Content-Type': undefined
+		 }
+		}).then(function success(response) {
+			
+			//If this was successfull, handle the data from the server
+			collection.movies = response.data; //Copy the response data into our movie array
+
+			//Load the image for each movie
+			angular.forEach(collection.movies, function(movie) {
+				fetchMovieImage(movie);
+			})
+
+		}, function error(error){
+			console.log(error);
+		});
+	}
+
+	init();
+
 	/**
-	 * Use the $http method to send a GET request to our movie API. 
-	 * We provide some details in the first paramater. 
-	 * We use the .then() method to pass in our success and error functions. 
-	 */
-	$http({
-	 method: 'GET',
-	 url: API+'movies',
-	 headers: {
-	   'Content-Type': undefined
-	 }
-	}).then(function success(response) {
-		
-		//If this was successfull, handle the data from the server
-		collection.movies = response.data; //Copy the response data into our movie array
-
-		//Load the image for each movie
-		angular.forEach(collection.movies, function(movie) {
-			fetchMovieImage(movie);
-		})
-
-	}, function error(error){
-		console.log(error);
-	});
-
-	/**
-	 * Adds a new movie to the array.
+	 * Called when create form submits
 	 */
 	collection.addNewMovie = function() {
+		movie = {
+				title: collection.newMovie.title,
+				description: collection.newMovie.description
+		}
+
+		createMovie(movie);
+	};
+
+
+	/**
+	 * Called when review form submits
+	 */
+	collection.addReview = function(movie) {
+
+		review = {
+			score: movie.review.score,
+			body: movie.review.body
+		}
+		
+		addReviewToMovie(movie, review);
+	};
+
+
+
+	/**
+	* These functions make requests to the API
+	*/
+
+	function createMovie(movie) {
 		/**
 		 * Like before, we use the $http method to send a POST request to our movie API. 
 		 * Because its a POST request we provide the data we want to send.
@@ -45,10 +74,7 @@ app.controller("MoviesController", ['$http', function($http) {
 		$http({
 			method: 'POST',
 			url: API+'movies',
-			data: {
-				title: collection.newMovie.title,
-				description: collection.newMovie.description
-			}
+			data: movie
 		}).then(function successCallback(response) {
 			//Make sure the response has the data we need
 			if(response.data.title != null && response.data.description != null) {
@@ -65,12 +91,9 @@ app.controller("MoviesController", ['$http', function($http) {
 		}, function errorCallback(error) {
 		    console.log(error);
 		});
-	};
+	}
 
-	/**
-	 * Adds a new review to the array
-	 */
-	collection.addReview = function(movie) {
+	function addReviewToMovie(movie, review) {
 		/**
 		 * Again, we use the $http method to send a POST request to our movie API. 
 		 * Because its a POST request we provide the data we want to send.
@@ -94,7 +117,7 @@ app.controller("MoviesController", ['$http', function($http) {
 		}, function errorCallback(error) {
 		    console.log(error); //Something was wrong with our request, print the error
 		});
-	};
+	}
 
 	/**
 	 * Fetches the image for the given movie and updates data.
@@ -119,4 +142,5 @@ app.controller("MoviesController", ['$http', function($http) {
 	    	console.log(error); //Something went wrong, log the error
 		})
 	}
+
 }]);
