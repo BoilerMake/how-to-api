@@ -107,7 +107,7 @@ app.controller("MoviesController", ['$http', function($http) {
 		 */
 		$http({
 		 method: 'GET',
-		 url: 'http://www.omdbapi.com/?t='+movie.title+'&y=&plot=short&r=json',
+		 url: 'https://www.omdbapi.com/?t='+movie.title+'&y=&plot=short&r=json',
 		 headers: {
 		   'Content-Type': undefined
 		 }
