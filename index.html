@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- These tags are used for compatability reasons -->
+  	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Import the files we need -->
+	<link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='/styles/styles.css'>
+	
+	<!-- Set the title of the page -->
+	<title>Movies</title>
+</head>
+
+<!-- We define the controller for the body. This will point to the controller in app.js-->
+<body class='gradient-background'>
+	<nav class='navbar navbar-default'>
+		<div class='container'>
+
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class='navbar-header'>
+				<a class='navbar-brand' href='#'>
+					<img src='public/logo.svg' />
+				</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div>
+				<ul class='nav navbar-nav navbar-right'>
+					<li class='new-submission-link'><a ng-click='collection.expandNewMovieEntry = true'>New Submission <img src='public/plus.svg' /></a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<!-- Container which will hold the main page -->
+	<div class='container movie-container'>
+		<!-- The add movie form. ng-show means this section will be shown only if collection.expandNewMovieEntry is true -->
+		<div class='card add-movie' ng-show='collection.expandNewMovieEntry'>
+			<h1 class='title'>New Movie Submission</h1>
+			<!-- When the user clicks this image, set expandNewMovieEntry to false. -->
+			<img ng-click='collection.expandNewMovieEntry = false' class='times' src='public/times.svg' />
+
+			<!-- When the form is submitted, call the addNewMovie() method in our controller -->
+			<!-- Add new movie -->
+			<form>
+				<div class='form-group'>
+					<label class='movie-label'>Title:</label>
+					<input class='movie-input' type='text' size='30' placeholder='Title'>
+				</div>
+
+				<div class='form-group'>
+					<label class='movie-label'>Description:</label>
+					<textarea class='movie-input' cols='30' placeholder='Description'></textarea>
+				</div>
+				<input class='movie-submit' type='submit' value='Submit Movie'>
+			</form>
+		</div>
+
+		<!-- ng-repeat will create a copy of this section for each movie in our collection.movies array -->
+		<!--Movie Entry-->
+		<div class='card thin-card'>
+			<div>
+				<!-- Movie Title -->
+				<h1 class='title movie-title'></h1>
+
+				<!-- Movie Image -->
+				<div class="movie-image">
+					<img width="200" height="300"/>
+				</div>
+
+				<!-- Movie Description -->
+				<p class="movie-description"></p>
+
+				<!-- Movie Review Icon -->
+				<div ng-hide='movie.expandNewReviewEntry' class='form-group center-wrapper'>
+					<img ng-click='movie.expandNewReviewEntry = true' class='review-dropdown-icon' src='public/chevron.svg' />
+				</div>
+
+				<!-- Movie Review Section. This is only shown if expandNewReviewEntry is true -->
+				<!-- Movie Review -->
+				<div ng-show='movie.expandNewReviewEntry'>
+					<!-- New Review Form -->
+					<h3 class='title'>New Review</h3>
+
+					<!-- Call the addReview() method when this form is submitted -->
+					<form ng-submit='collection.addReview(movie)'>
+						<div class='form-group'>
+							<label class='movie-label'>Score:</label>
+							<input class="movie-input review-input" type='text' placeholder='Score'>
+						</div>
+						<div class='form-group'>
+							<label class='movie-label'>Review:</label>
+							<textarea class="movie-input review-input" type='text' placeholder='Review'></textarea>
+						</div>
+						<input class='movie-submit review-submit' type='submit' value='Add'>
+					</form>
+
+					<!-- List of Existing Reviews -->
+					<div class='review-container' ng-show='movie.reviews.length > 0'>
+						<h3 class="title review-header">Reviews</h3>
+						<!-- Repeat this section for each review in this movie -->
+						<div ng-repeat='review in movie.reviews'>
+							<h5 class="review-score"> Score: </h5>
+							<p></p>
+						</div>
+					</div>
+
+					<!-- Close Review Button -->
+					<div class='form-group center-wrapper'>
+						<img ng-click='movie.expandNewReviewEntry = false' class='review-dropdown-icon upside-down' src='public/chevron.svg' />
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Place two extra cards as padding -->
+		<div class='card thin-card'></div>
+		<div class='card thin-card'></div>
+
+		<script type='text/javascript' src='/bower_components/angular/angular.min.js'></script>
+		<script type='text/javascript' src='/app/app.js'></script>
+	</body>
+	</html>
