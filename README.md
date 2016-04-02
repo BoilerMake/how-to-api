@@ -5,6 +5,8 @@ A (more or less) working introduction to working with the MEAN stack. This tutor
 ## The Walkthrough
 This project is set up in 3 main parts, which you can view [here](https://boilercamp.gitbooks.io/boilercamp2016/content/). You'll start by using the [Postman](https://www.getpostman.com/) chrome extension to work with Twitter's API. Next, you'll use Node to create your very own API. Along the way, you'll learn to work with [Mongoose](http://mongoosejs.com/) and [MongoDB](https://www.mongodb.org/). Finally, you'll create a frontend with [AngularJS](https://angularjs.org/) and integrate it with the your API. 
 
+You can download the full presentation slides [here](https://github.com/BoilerCamp/how-to-api/raw/master/Complete%20Slides.pdf). 
+
 ## Running the Project
 This repo represents the finished version of the product after all of the walkthroughs are finished. If you want to see how it looks, you can do the following: 
 
