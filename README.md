@@ -21,3 +21,8 @@ This repo represents the finished version of the product after all of the walkth
 
 ## Thanks
 We owe a huge thanks to the entire BoilerCamp team, and all the volunteers who helped at the event!
+
+### License
+All code in this repository is released under AGPL v3. See [LICENSE.md][license] for details. All educational material (e.g. slides) is released under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+
+[license]: LICENSE.md
